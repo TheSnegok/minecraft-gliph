@@ -1,38 +1,188 @@
+@font-face {
+	font-family: "MinecraftGliph";
+	src: url("./font/minecraft-enchantment.ttf") format("truetype");
+	font-style: normal;
+	font-weight: normal;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
 .App {
-  text-align: center;
+	position: relative;
+	background-image: url('img/earth.jpg');
+	background-size: 10vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100vh;
+	padding: 3vh 0 8vh;
+	text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.inputLine {
+	width: 60%;
+	height: 7vh;
+	font-size: 5vh;
+	border: 2px solid orange;
+	border-radius: 10px;
+	padding: 1vh;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.gliphs {
+	font-family: MinecraftGliph;
+}
+
+.gliphArea {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.translate {
+	text-transform: lowercase;
+}
+
+main {
+	display: block;
+	text-align: center;
+	width: 100%;
+	margin-bottom: 5vh;
+}
+
+.wrapperHeading {
+	padding: 1vh;
+	margin-bottom: 3vh;
+	text-align: center;
+	background-color: #000;
+	border-radius: 10px;
+	border: 2px solid greenyellow;
+}
+
+h1 {
+	font-size: 7vh;
+	font-family: 'Courier New', Courier, monospace;
+	color: greenyellow;
+}
+
+.controlPanel {
+	width: 60%;
+	display: flex;
+	justify-content: space-around;
+}
+
+.btn {
+	margin-top: 3vh;
+	min-height: 5vh;
+	max-height: 7vh;
+	width: 15%;
+	position: relative;
+	font-family: 'Courier New', Courier, monospace;
+	font-size: 2vh;
+  	background: linear-gradient(315deg, #89d8d3 0%, #03c8a8 74%);
+	border: none;
+	z-index: 1;
   }
-}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  .btn:after {
+	position: absolute;
+	content: "";
+	width: 100%;
+	height: 0;
+	bottom: 0;
+	left: 0;
+	z-index: -1;
+	border-radius: 5px;
+	background-color: #4dccc6;
+  	background-image: linear-gradient(315deg, #4dccc6 0%, #96e4df 74%);
+	transition: all 0.3s ease;
   }
-  to {
-    transform: rotate(360deg);
+
+  .btn:hover {
+	color: #fff;
   }
+  
+  .btn:hover:after {
+	top: 0;
+	height: 100%;
+  }
+
+  .btn:active {
+	top: 0.2vh;
+  }
+
+.history {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
 }
+
+.centry {
+	text-align: center;
+	width: 100%;
+}
+
+.gliphAlphabet {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: center;
+	margin-top: 5vh;
+	background-color: #000;
+	width: 80%;
+	padding: 1vh;
+	color: #4dccc6;
+	border-radius: 10px;
+	border: 2px solid greenyellow;
+}
+
+.gliphMine {
+	font-family: "MinecraftGliph";
+	font-size: 7vh;
+	cursor: pointer;
+}
+
+.gliphMine:hover {
+	color: greenyellow;
+}
+
+.wrapperCreator {
+	position: absolute;
+	font-size: 2vh;
+	line-height: 2vh;
+	max-height: 4vh;
+	bottom: 1vh;
+	transform: translate(-50%, -50%);
+	padding: 1vh;
+	color: greenyellow;
+	text-align: center;
+	background-color: #000;
+	border-radius: 10px;
+	border: 2px solid greenyellow;
+	overflow: hidden;
+}
+
+.wrapperCreator {
+	position: absolute;
+	font-size: 2vh;
+	line-height: 2vh;
+	max-height: 4vh;
+	bottom: 1vh;
+	transform: translate(-50%, -50%);
+	padding: 1vh;
+	color: greenyellow;
+	text-align: center;
+	background-color: #000;
+	border-radius: 10px;
+	border: 2px solid greenyellow;
+	overflow: hidden;
+}
+
+
