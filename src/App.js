@@ -66,8 +66,8 @@ function App() {
 					/>
 				</div>
 			</div>
-			<a href="mailto:lord180499@gmail.com">
-				<div className="wrapperCreator">created Max Snega</div>
+			<a className="wrapperHref" href="mailto:lord180499@gmail.com">
+				<div className="wrapperHrefCreator">created Max Snega</div>
 			</a>
 		</div>
 	);
