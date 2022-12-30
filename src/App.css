@@ -13,7 +13,7 @@
 
 .App {
 	position: relative;
-	background-image: url('img/earth.jpg');
+	background-image: url("img/earth.jpg");
 	background-size: 10vh;
 	display: flex;
 	flex-direction: column;
@@ -67,7 +67,7 @@ main {
 
 h1 {
 	font-size: 7vh;
-	font-family: 'Courier New', Courier, monospace;
+	font-family: "Courier New", Courier, monospace;
 	color: greenyellow;
 }
 
@@ -83,15 +83,15 @@ h1 {
 	max-height: 7vh;
 	width: 15vh;
 	position: relative;
-	font-family: 'Courier New', Courier, monospace;
+	font-family: "Courier New", Courier, monospace;
 	font-size: 2vh;
-  	background: linear-gradient(315deg, #89d8d3 0%, #03c8a8 74%);
+	background: linear-gradient(315deg, #89d8d3 0%, #03c8a8 74%);
 	border: none;
 	z-index: 1;
 	margin-right: 2vw;
-  }
+}
 
-  .btn:after {
+.btn:after {
 	position: absolute;
 	content: "";
 	width: 100%;
@@ -101,20 +101,20 @@ h1 {
 	z-index: -1;
 	background-color: #000000;
 	transition: all 0.3s ease;
-  }
+}
 
-  .btn:hover {
+.btn:hover {
 	color: rgb(255, 255, 255);
-  }
-  
-  .btn:hover:after {
+}
+
+.btn:hover:after {
 	top: 0;
 	height: 100%;
-  }
+}
 
-  .btn:active {
+.btn:active {
 	top: 0.2vh;
-  }
+}
 
 .history {
 	display: flex;
@@ -130,10 +130,8 @@ h1 {
 }
 
 .gliphAlphabet {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-around;
-	align-items: center;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(30px, 1fr));
 	margin-top: 5vh;
 	background-color: #000;
 	width: 80%;
@@ -161,7 +159,7 @@ h1 {
 	align-items: center;
 	width: 20vw;
 	height: 5vh;
-	padding: .5vh;
+	padding: 0.5vh;
 	text-decoration: none;
 	color: greenyellow;
 	background-color: #000;
@@ -174,4 +172,40 @@ h1 {
 	line-height: 2vh;
 }
 
+@media (max-width: 1000px) {
+	.gliphAlphabet {
+		grid-template-columns: repeat(13, minmax(30px, 1fr));
+	}
+}
+
+@media (max-width: 768px) {
+	.gliphAlphabet {
+		grid-template-columns: repeat(9, minmax(30px, 1fr));
+	}
+
+	.wrapperHeading {
+		padding: 4px;
+		margin-bottom: 15px;
+	}
+
+	h1 {
+		font-size: 18px;
+	}
+}
+
+@media (max-width: 500px) {
+	.gliphAlphabet {
+		grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+	}
+
+	.wrapperHref {
+		width: auto;
+		padding: 0 15px;
+	}
+
+	.wrapperHrefCreator {
+		font-size: 14px;
+		line-height: 18px;
+	}
+}
 

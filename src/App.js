@@ -1,17 +1,18 @@
 import React, { useState } from "react";
+import html2canvas from "html2canvas";
 import Gliph from "./component/Gliphs/Gliph";
 import "./App.css";
 
 function App() {
 	const [value, setValue] = useState("");
 	const clear = () => {
-		setValue("");
+		setValue((value) => (value = ""));
 	};
 	const clearLast = () => {
-		setValue(value.slice(0, value.length - 1));
+		setValue((value) => value.slice(0, value.length - 1));
 	};
 	const space = () => {
-		setValue(value + " ");
+		setValue((value) => value + " ");
 	};
 	const validation = (e) => {
 		const regExp = /^[a-zA-Z|\s]+$/;
@@ -23,6 +24,15 @@ function App() {
 				: e.target.value.match(regExp).input
 		);
 	};
+
+	const saveImage = (e) => {
+		html2canvas(e.target).then((canvas) => {
+			canvas.toBlob(function(blob) {
+				window.saveAs(blob, "my_image.jpg");
+			});
+		});
+	};
+
 	return (
 		<div className="App">
 			<main>
@@ -35,6 +45,7 @@ function App() {
 							className="inputLine gliphs"
 							value={value}
 							readOnly
+							onClick={(e) => saveImage(e)}
 						/>
 						<div className="controlPanel">
 							<button className="btn" onClick={clear}>
