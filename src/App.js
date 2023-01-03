@@ -5,6 +5,7 @@ import "./App.css";
 
 function App() {
 	const [value, setValue] = useState("");
+	const [alert, setAlert] = useState("");
 	const clear = () => {
 		setValue((value) => (value = ""));
 	};
@@ -26,23 +27,26 @@ function App() {
 	};
 
 	const saveImage = (e) => {
-		html2canvas(e.target).then((canvas) => {
-			const image = canvas.toDataURL("image/png", 1.0);
-			const downloadImage = (blob, fileName) => {
-				const fakeLink = window.document.createElement("a");
-				fakeLink.style = "display:none;";
-				fakeLink.download = fileName;
-
-				fakeLink.href = blob;
-
-				document.body.appendChild(fakeLink);
-				fakeLink.click();
-				document.body.removeChild(fakeLink);
-
-				fakeLink.remove();
-			};
-			downloadImage(image, 'gliphs.png');
-		});
+		if(e.target.value !== "") {
+			html2canvas(e.target).then((canvas) => {
+				const image = canvas.toDataURL("image/png", 1.0);
+				const downloadImage = (blob, fileName) => {
+					const fakeLink = window.document.createElement("a");
+					fakeLink.style = "display:none;";
+					fakeLink.download = fileName;
+					fakeLink.href = blob;
+					document.body.appendChild(fakeLink);
+					fakeLink.click();
+					document.body.removeChild(fakeLink);
+	
+					fakeLink.remove();
+				};
+				downloadImage(image, 'gliphs.png');
+			});
+		} else {
+			setAlert("Empty string!");
+		}
+		
 	};
 
 	return (
@@ -64,7 +68,7 @@ function App() {
 								Clear
 							</button>
 							<button className="btn" onClick={clearLast}>
-								Delete last
+								Remove last
 							</button>
 							<button className="btn" onClick={space}>
 								Space
@@ -76,7 +80,7 @@ function App() {
 					</div>
 				</div>
 			</main>
-			<div className="history">
+			<div className="english">
 				<div className="wrapperHeading">
 					<h1>Translation</h1>
 				</div>
@@ -90,8 +94,9 @@ function App() {
 				</div>
 			</div>
 			<a className="wrapperHref" href="mailto:lord180499@gmail.com">
-				<div className="wrapperHrefCreator">created Max Snega</div>
+				<div className="wrapperHrefCreator">created by Max Snega</div>
 			</a>
+			<div className={alert === "" ? "hideAlert" : "showAlert"}>{alert}</div>
 		</div>
 	);
 }
