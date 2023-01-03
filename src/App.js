@@ -27,9 +27,21 @@ function App() {
 
 	const saveImage = (e) => {
 		html2canvas(e.target).then((canvas) => {
-			canvas.toBlob(function(blob) {
-				window.saveAs(blob, "my_image.jpg");
-			});
+			const image = canvas.toDataURL("image/png", 1.0);
+			const downloadImage = (blob, fileName) => {
+				const fakeLink = window.document.createElement("a");
+				fakeLink.style = "display:none;";
+				fakeLink.download = fileName;
+
+				fakeLink.href = blob;
+
+				document.body.appendChild(fakeLink);
+				fakeLink.click();
+				document.body.removeChild(fakeLink);
+
+				fakeLink.remove();
+			};
+			downloadImage(image, 'gliphs.png');
 		});
 	};
 
