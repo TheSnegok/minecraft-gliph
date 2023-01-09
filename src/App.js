@@ -1,20 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import html2canvas from "html2canvas";
 import Gliph from "./component/Gliphs/Gliph";
 import "./App.css";
 
 function App() {
 	const [value, setValue] = useState("");
-	const [alert, setAlert] = useState("");
+	const [alert, setAlert] = useState({ show: false, text: "Error!" });
+
 	const clear = () => {
 		setValue((value) => (value = ""));
 	};
+
 	const clearLast = () => {
 		setValue((value) => value.slice(0, value.length - 1));
 	};
+
 	const space = () => {
 		setValue((value) => value + " ");
 	};
+
 	const validation = (e) => {
 		const regExp = /^[a-zA-Z|\s]+$/;
 		setValue(
@@ -27,7 +31,7 @@ function App() {
 	};
 
 	const saveImage = (e) => {
-		if(e.target.value !== "") {
+		if (e.target.value !== "") {
 			html2canvas(e.target).then((canvas) => {
 				const image = canvas.toDataURL("image/png", 1.0);
 				const downloadImage = (blob, fileName) => {
@@ -38,16 +42,24 @@ function App() {
 					document.body.appendChild(fakeLink);
 					fakeLink.click();
 					document.body.removeChild(fakeLink);
-	
+
 					fakeLink.remove();
 				};
-				downloadImage(image, 'gliphs.png');
+				downloadImage(image, "gliphs.png");
 			});
 		} else {
-			setAlert("Empty string!");
+			setAlert({ show: true, text: "Empty string!" });
 		}
-		
 	};
+
+	useEffect(() => {
+		if (alert.show === true) {
+			setTimeout(
+				() => setAlert((alert) => ({ show: false, text: alert.text })),
+				3000
+			);
+		}
+	}, [alert]);
 
 	return (
 		<div className="App">
@@ -57,12 +69,14 @@ function App() {
 						<div className="wrapperHeading">
 							<h1>Gliphs</h1>
 						</div>
-						<input
-							className="inputLine gliphs"
-							value={value}
-							readOnly
-							onClick={(e) => saveImage(e)}
-						/>
+						<div className="inputLine">
+							<textarea
+								className="gliphs"
+								value={value}
+								readOnly
+								onClick={(e) => !alert.show && saveImage(e)}
+							/>
+						</div>
 						<div className="controlPanel">
 							<button className="btn" onClick={clear}>
 								Clear
@@ -85,18 +99,22 @@ function App() {
 					<h1>Translation</h1>
 				</div>
 				<div className="centry">
-					<input
-						type="text"
-						value={value}
-						className="inputLine translate"
-						onChange={validation}
-					/>
+					<div className="inputLine">
+						<input
+							type="text"
+							value={value}
+							className="translate"
+							onChange={validation}
+						/>
+					</div>
 				</div>
 			</div>
 			<a className="wrapperHref" href="mailto:lord180499@gmail.com">
 				<div className="wrapperHrefCreator">created by Max Snega</div>
 			</a>
-			<div className={alert === "" ? "hideAlert" : "showAlert"}>{alert}</div>
+			<div className={alert.show === false ? "hideAlert" : "showAlert"}>
+				<span>{alert.text}</span>
+			</div>
 		</div>
 	);
 }
