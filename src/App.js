@@ -20,14 +20,16 @@ function App() {
 	};
 
 	const validation = (e) => {
-		const regExp = /^[a-zA-Z|\s]+$/;
-		setValue(
-			e.target.value === ""
-				? e.target.value
-				: e.target.value.match(regExp) === null
-				? value + ""
-				: e.target.value.match(regExp).input
-		);
+		if (e.target.value.length < 50) {
+			const regExp = /^[a-zA-Z|\s]+$/;
+			setValue(
+				e.target.value === ""
+					? e.target.value
+					: e.target.value.match(regExp) === null
+					? value + ""
+					: e.target.value.match(regExp).input
+			);
+		}
 	};
 
 	const saveImage = (e) => {
@@ -74,8 +76,11 @@ function App() {
 								className="gliphs"
 								value={value}
 								readOnly
+								rows={5}
+								columns={10}
 								onClick={(e) => !alert.show && saveImage(e)}
-							/>
+							></textarea>
+							<div className="helper">Click for download!</div>
 						</div>
 						<div className="controlPanel">
 							<button className="btn" onClick={clear}>
@@ -100,12 +105,13 @@ function App() {
 				</div>
 				<div className="centry">
 					<div className="inputLine">
-						<input
-							type="text"
+						<textarea
 							value={value}
 							className="translate"
 							onChange={validation}
-						/>
+							readOnly
+							rows={5}
+						></textarea>
 					</div>
 				</div>
 			</div>

@@ -4,7 +4,7 @@ const alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P
 
 const Gliph = ({ value, set }) => {
     const handleClick = (letter) => {
-        set(value + letter);
+        set(value.length < 50 ? value + letter : value);
     }
     return (
         <>
