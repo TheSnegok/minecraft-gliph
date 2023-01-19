@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import html2canvas from "html2canvas";
 import Gliph from "./component/Gliphs/Gliph";
 import "./App.css";
 
 function App() {
+	const maxLength = 30;
 	const [value, setValue] = useState("");
 	const [alert, setAlert] = useState({ show: false, text: "Error!" });
+	const saver = useRef();
 
 	const clear = () => {
 		setValue((value) => (value = ""));
@@ -20,7 +22,7 @@ function App() {
 	};
 
 	const validation = (e) => {
-		if (e.target.value.length < 50) {
+		if (e.target.value.length < maxLength) {
 			const regExp = /^[a-zA-Z|\s]+$/;
 			setValue(
 				e.target.value === ""
@@ -34,7 +36,7 @@ function App() {
 
 	const saveImage = (e) => {
 		if (e.target.value !== "") {
-			html2canvas(e.target).then((canvas) => {
+			html2canvas(saver.current).then((canvas) => {
 				const image = canvas.toDataURL("image/png", 1.0);
 				const downloadImage = (blob, fileName) => {
 					const fakeLink = window.document.createElement("a");
@@ -44,7 +46,6 @@ function App() {
 					document.body.appendChild(fakeLink);
 					fakeLink.click();
 					document.body.removeChild(fakeLink);
-
 					fakeLink.remove();
 				};
 				downloadImage(image, "gliphs.png");
@@ -71,15 +72,13 @@ function App() {
 						<div className="wrapperHeading">
 							<h1>Gliphs</h1>
 						</div>
-						<div className="inputLine">
-							<textarea
+						<div className="inputLine" ref={saver}>
+							<input
 								className="gliphs"
 								value={value}
 								readOnly
-								rows={5}
-								columns={10}
 								onClick={(e) => !alert.show && saveImage(e)}
-							></textarea>
+							/>
 							<div className="helper">Click for download!</div>
 						</div>
 						<div className="controlPanel">
@@ -94,27 +93,25 @@ function App() {
 							</button>
 						</div>
 						<div className="gliphAlphabet">
-							<Gliph value={value} set={setValue} />
+							<Gliph value={value} set={setValue} maxLength={maxLength} />
+						</div>
+					</div>
+				</div>
+				<div className="english">
+					<div className="wrapperHeading">
+						<h1>Translation</h1>
+					</div>
+					<div className="centry">
+						<div className="inputLine">
+							<input
+								value={value}
+								className="translate"
+								onChange={validation}
+							/>
 						</div>
 					</div>
 				</div>
 			</main>
-			<div className="english">
-				<div className="wrapperHeading">
-					<h1>Translation</h1>
-				</div>
-				<div className="centry">
-					<div className="inputLine">
-						<textarea
-							value={value}
-							className="translate"
-							onChange={validation}
-							readOnly
-							rows={5}
-						></textarea>
-					</div>
-				</div>
-			</div>
 			<a className="wrapperHref" href="mailto:lord180499@gmail.com">
 				<div className="wrapperHrefCreator">created by Max Snega</div>
 			</a>

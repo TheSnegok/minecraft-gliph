@@ -2,9 +2,9 @@ import React from 'react'
 
 const alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 
-const Gliph = ({ value, set }) => {
+const Gliph = ({ value, set, maxLength }) => {
     const handleClick = (letter) => {
-        set(value.length < 50 ? value + letter : value);
+        set(value.length < maxLength ? value + letter : value);
     }
     return (
         <>
